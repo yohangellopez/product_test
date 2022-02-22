@@ -9,8 +9,8 @@
                 :rows="products">
                 <template slot="table-row" slot-scope="props">
                 <span v-if="props.column.field == 'actions'">
-                    <button @click="editRow(props.row.id)">Edit</button>
-                    <button @click="deleteRow(props.row.id)">Delete</button>
+                    <button @click="editRow(props.row.id)">Editar</button>
+                    <button @click="Remove_Product(props.row.id)">Eliminar</button>
                 </span>
                 <span v-else-if="props.column.field == 'image'">
                     <b-img
@@ -156,10 +156,6 @@ import axios from 'axios';
             uploadImageSuccess(formData, index, fileList) {
                 console.log('data', formData, index, fileList)
                  this.images = fileList;
-                // Upload image api
-                // axios.post('http://your-url-upload', formData).then(response => {
-                //   console.log(response)
-                // })
             },
 
             beforeRemove (index, done, fileList) {
@@ -194,14 +190,53 @@ import axios from 'axios';
                 axios
                 .post("http://127.0.0.1:8000/api/product", self.data)
                 .then(response => {
-
-                 this.$bvToast.toast(`Producto agregado`, {
+                    this.resetForm();
+                 this.$bvToast.toast('Producto agregado', {
                     title: 'Success',
-                    autoHideDelay: 5000,
-                    appendToast: append
+                    autoHideDelay: 5000
+                });
+                this.$bvModal.hide('modal-prevent-closing');
                 })
-                })
-            }
+            },
+            resetForm(){
+                this.product={
+                  description: "",   
+                    ref: "",
+                    price: 0,
+                }; 
+                this.images=[]; 
+            },
+            Remove_Product(id) {
+                this.$swal({
+                    title: "Eliminar producto",
+                    text: "Desea eliminar el producto?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText: "Cancelar",
+                    confirmButtonText:"Confirmar"
+                }).then(result => {
+                    if (result.value) {
+                    axios
+                        .delete("http://127.0.0.1:8000/api/product/" + id)
+                        .then(() => {
+                        this.$swal(
+                            "Eliminado",
+                            "Producto Eliminado",
+                            "success"
+                        );
+                        })
+                        .catch(() => {
+                        this.$swal(
+                            "Error al eliminar el producto",
+                            "Error",
+                            "warning"
+                        );
+                        });
+                    }
+                });
+            },
         }
     }
 </script>

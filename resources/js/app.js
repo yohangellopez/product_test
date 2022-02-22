@@ -12,10 +12,12 @@ import VueGoodTablePlugin from 'vue-good-table';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'vue-good-table/dist/vue-good-table.css'
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 window.Vue = require('vue').default;
 
-
+Vue.use(VueSweetalert2);
 Vue.use(BootstrapVue);
 Vue.use(VueLazyload)
 Vue.use(VueGoodTablePlugin);

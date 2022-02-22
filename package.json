@@ -25,8 +25,11 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@fortawesome/free-regular-svg-icons": "^6.0.0",
         "bootstrap-vue": "^2.21.2",
+        "sweetalert2": "^11.4.4",
         "vue-good-table": "^2.21.11",
+        "vue-sweetalert2": "^5.0.2",
         "vue-upload-multiple-image": "^1.1.6"
     }
 }

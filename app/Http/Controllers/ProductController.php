@@ -81,9 +81,12 @@ class ProductController extends Controller
                     ProductVariant::insert($product_variants_data);
                     $product->save();
                 }
-                
-            
+
             }, 10);
+            return response()->json([
+                'status' => 200,
+                'msg' => 'success',
+                ], 200);  
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => 422,
